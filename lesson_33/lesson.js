@@ -20,14 +20,3 @@ const users = [
     age: 18,
   }
 ];
-
-// Решение
-const getAverageAge = (users) => {
-  return users.reduce((sumOfAges, user) => {
-    return sumOfAges + user.age/users.length
-  }, 0)
-}
-
-const sortByAge = (users) => users.sort((a,b) => b.age - a.age)
-
-const checkUserByAge = (users, age) => users.some((user) => user.age === age)

@@ -1,3 +1,4 @@
+// #1
 // Поменять буквы в обратном порядке
 // для каждого слова
 // "Welcome to this Javascript Guide!" ->
@@ -5,8 +6,8 @@
 
 const string = "Welcome to this Javascript Guide!"
 
-
-// Решение
-// function reverseString(string) {
-//   return string.split(" ").reverse().join(separator);
-// }
+// #2
+// Есть массив из нескольких массивов с числами
+// Написать функцию, которая будет возвращать сумму всех чисел во всех массивах
+// Пример сумма [[1,2], [3,2], [5, 6, 2], [4]] должна вернуть 25
+const matrix = [[1,2], [3,2], [5, 6, 2], [4]]

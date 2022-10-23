@@ -16,7 +16,35 @@
 // Например: передаем (films, 'title', 'Black Widow') и на выходе получаем фильм с id=1,
 // если передаем (films, 'year', 2011) , то получаем фильм с id=2
 
-const films = [
+type Film = {
+    id?: number;
+    title: string;
+    year: number;
+    released: string;
+    runtime: string;
+    genre: Array<string>;
+    director: string;
+    writer: string;
+    actors: Array<string>;
+    plot: string;
+    country: string;
+    poster: string;
+    imdbRating: number;
+    imdbVotes: number;
+    type?: string;
+    boxOffice: string;
+    production: string;
+}
+
+type SimplifiedFilm = {
+    id?: number;
+    title: string;
+    released: string;
+    plot: string;
+}
+
+
+const films: Array<Film> = [
     {
         id: 1,
         title: "Black Widow",
@@ -110,3 +138,50 @@ const films = [
         production: "1492 Pictures, Heyday Films, Warner Brothers",
     }
 ]
+
+
+const getAllGenres = (films: Array<Film>): Array<string> =>
+    filterDuplicates(films.flatMap((value) => value.genre));
+
+
+const getAllActors = (films: Array<Film>): Array<string> =>
+    filterDuplicates(films.flatMap((value) => value.actors));
+
+const getFilmsSortedByRating = (films: Array<Film>): Array<Film> =>
+    films.filter(({imdbRating}) => imdbRating)
+        .sort(({imdbRating: oRating}, {imdbRating: eRating}) => oRating - eRating);
+
+const simplifyFilms = (films: Array<Film>): Array<SimplifiedFilm> =>
+    films.map(value =>
+        Object.create({
+            id: value.id,
+            title: value.title,
+            released: value.released,
+            plot: value.plot
+        })
+    );
+
+
+const getFilmsByReleaseDateIncludes = (films: Array<Film>, releaseYear: number): Array<Film> =>
+    filterByPropertyIncludes(films, 'released', releaseYear);
+
+const getFilmsByTitleIncludes = (films: Array<Film>, criteria: string): Array<Film> =>
+    filterByPropertyIncludes(films, 'title', criteria);
+
+const getFilmsByPlotAndTitleIncludes = (films: Array<Film>, criteria: string): Array<Film> =>
+    filterByPropertyIncludes(
+        getFilmsByTitleIncludes(films, criteria),
+        'plot',
+        criteria
+    );
+
+
+/*util*/
+const filterDuplicates = (array: Array<any>): Array<any> => array.filter(((value, index, array) => array.indexOf(value) === index))
+
+
+//последняя задачка, вроде подходит под описание)
+const filterByPropertyIncludes = (array: Array<any>, propertyName: string, content: number | string): Array<any> =>
+    array.filter(object => object && object[propertyName]?.includes(content.toString));
+
+
